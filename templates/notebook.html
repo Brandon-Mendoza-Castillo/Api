@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,25 @@
 </head>
 <body>
     <a href="{{ url_for('index') }}" style="text-decoration: none; font-size: 18px; margin: 10px; display: inline-block;">← Regresar</a>
-    <div style="padding: 20px;">
-        {{ notebook_html | safe }}
+    <div id="image-container" style="padding: 20px;">
+        <!-- Las imágenes se insertarán aquí -->
     </div>
+    <script>
+        // Contenido del notebook como HTML
+        const notebookHtml = {{ notebook_html | safe }};
+
+        // Crear un contenedor temporal para analizar el contenido
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = notebookHtml;
+
+        // Seleccionar todas las imágenes del contenido
+        const images = tempDiv.querySelectorAll('img');
+
+        // Insertar las imágenes en el contenedor principal
+        const imageContainer = document.getElementById('image-container');
+        images.forEach(img => {
+            imageContainer.appendChild(img.cloneNode(true));
+        });
+    </script>
 </body>
 </html>
